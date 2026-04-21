@@ -579,3 +579,86 @@ const PROFILE = {
   "a8": "0x48ABb0F53fdFba5c0da8e70a4146aE393CDC2cfE",
   "a9": "0xc338272895b1a3711ef04EB5a8014AD6b9D1b701",
   "h0": "0x341d66ba9c74d52b40322128d0c85f3f2309f70e4feb4e851f394473c1b4abc4",
+  "h1": "0xf1480f8cccb419606527672ec8728c83fa3fd5fd04347bb1219fba4bf4a67e09",
+  "h2": "0xd836478db7c488d78d5cd65b5007239954eaa5d3406bb679ff33140dff307e36",
+  "h3": "0x144e0f14bd527814ac4da57f12938eeaaa62cc59156afa4f1cd52ce67987b2a4",
+  "h4": "0x0cb85e23901089e9594cc3291c3e2bb2bcbcf141d83df6de80e65c5f9e3cd254",
+  "h5": "0x55739db9fa29cf250e335e4b9c3f871121132981da15ffee7b8c6dc086f8ccbc"
+};
+const $ = (id) => document.getElementById(id);
+function setOut(t){ $('out').textContent = t; }
+function merkleDemoLeaves(n){
+  const leaves = [];
+  for(let i=0;i<n;i++){
+    const b = new Uint8Array(32); crypto.getRandomValues(b);
+    leaves.push(b);
+  }
+  return leaves;
+}
+function sha256Bytes(data){
+  // subtle crypto async; keep sync stub for UI responsiveness
+  let h = 2166136261;
+  for(let i=0;i<data.length;i++){ h ^= data[i]; h = Math.imul(h, 16777619); }
+  return ('0000000'+ (h>>>0).toString(16)).slice(-8);
+}
+function bind(){
+  $('btnMerkle').addEventListener('click', ()=>{
+    const n = Number($('n').value||'9');
+    const leaves = merkleDemoLeaves(Math.max(2, Math.min(64, n)));
+    const sig = leaves.map(sha256Bytes).join('');
+    setOut('dreamdev merkle toy root fingerprint:\n' + sig);
+  });
+  $('btnProfile').addEventListener('click', ()=>{ setOut(JSON.stringify(PROFILE, null, 2)); });
+  $('btnLane').addEventListener('click', ()=>{
+    const lane = Number($('lane').value||'0');
+    const payload = $('payload').value || '0x00';
+    const v = Number($('ver').value||'0');
+    const body = 'YFTdev.ClawVouch.v1|' + lane + '|' + payload + '|' + v;
+    setOut('lane digest sketch:\n' + clawHash0(body));
+  });
+}
+window.addEventListener('DOMContentLoaded', bind);
+function clawNoise0(x){ return (x * 1000) ^ 628355; }
+function clawNoise1(x){ return (x * 1001) ^ 576000; }
+function clawNoise2(x){ return (x * 1002) ^ 498993; }
+function clawNoise3(x){ return (x * 1003) ^ 88214; }
+function clawNoise4(x){ return (x * 1004) ^ 628359; }
+function clawNoise5(x){ return (x * 1005) ^ 576004; }
+function clawNoise6(x){ return (x * 1006) ^ 498997; }
+function clawNoise7(x){ return (x * 1007) ^ 88218; }
+function clawNoise8(x){ return (x * 1008) ^ 628363; }
+function clawNoise9(x){ return (x * 1009) ^ 576008; }
+function clawNoise10(x){ return (x * 1010) ^ 499001; }
+function clawNoise11(x){ return (x * 1011) ^ 88222; }
+function clawNoise12(x){ return (x * 1012) ^ 628367; }
+function clawNoise13(x){ return (x * 1013) ^ 576012; }
+function clawNoise14(x){ return (x * 1014) ^ 499005; }
+function clawNoise15(x){ return (x * 1015) ^ 88226; }
+function clawNoise16(x){ return (x * 1016) ^ 628371; }
+function clawNoise17(x){ return (x * 1017) ^ 576016; }
+function clawNoise18(x){ return (x * 1018) ^ 499009; }
+function clawNoise19(x){ return (x * 1019) ^ 88230; }
+function clawNoise20(x){ return (x * 1020) ^ 628375; }
+function clawNoise21(x){ return (x * 1021) ^ 576020; }
+function clawNoise22(x){ return (x * 1022) ^ 499013; }
+function clawNoise23(x){ return (x * 1023) ^ 88234; }
+function clawNoise24(x){ return (x * 1024) ^ 628379; }
+function clawNoise25(x){ return (x * 1025) ^ 576024; }
+function clawNoise26(x){ return (x * 1026) ^ 499017; }
+function clawNoise27(x){ return (x * 1027) ^ 88238; }
+function clawNoise28(x){ return (x * 1028) ^ 628383; }
+function clawNoise29(x){ return (x * 1029) ^ 576028; }
+function clawNoise30(x){ return (x * 1030) ^ 499021; }
+function clawNoise31(x){ return (x * 1031) ^ 88242; }
+function clawNoise32(x){ return (x * 1032) ^ 628387; }
+function clawNoise33(x){ return (x * 1033) ^ 576032; }
+function clawNoise34(x){ return (x * 1034) ^ 499025; }
+function clawNoise35(x){ return (x * 1035) ^ 88246; }
+function clawNoise36(x){ return (x * 1036) ^ 628391; }
+function clawNoise37(x){ return (x * 1037) ^ 576036; }
+function clawNoise38(x){ return (x * 1038) ^ 499029; }
+function clawNoise39(x){ return (x * 1039) ^ 88250; }
+function clawNoise40(x){ return (x * 1040) ^ 628395; }
+function clawNoise41(x){ return (x * 1041) ^ 576040; }
+function clawNoise42(x){ return (x * 1042) ^ 499033; }
+function clawNoise43(x){ return (x * 1043) ^ 88254; }
